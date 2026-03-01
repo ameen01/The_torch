@@ -1,0 +1,82 @@
+.newspaper-container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
+    border: 1px solid #d1d5db;
+}
+
+/* The Bold Newspaper Title */
+.newspaper-header {
+    text-align: center;
+    border-bottom: 4px double #1e293b; /* Traditional double line */
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.masthead {
+    font-family: 'Playfair Display', serif; /* Or any bold serif font */
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.newspaper-meta {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #1e293b;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+/* Article Styling */
+.article-headline {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin: 2rem 0;
+    line-height: 1.2;
+    color: #0f172a;
+}
+
+.article-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+    padding-bottom: 10px;
+}
+
+.byline {
+    font-style: italic;
+    color: #64748b;
+}
+
+/* Multi-Column Magic */
+.newspaper-columns {
+    column-count: 2; /* Creates two columns like a newspaper */
+    column-gap: 40px;
+    column-rule: 1px solid #f1f5f9; /* Subtle line between columns */
+    font-family: 'Georgia', serif; /* Better for long reading */
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #334155;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .newspaper-columns {
+        column-count: 1; /* Stack on mobile */
+    }
+    .masthead {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,28 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/listening_news.css' %}">
+{% endblock %}
+
+{% block content %}
+    <a href="javascript:history.back()" class="back-link"><i class="fas fa-chevron-left"></i> Back to Stories</a>
+
+<div class="newspaper-container">
+    
+
+    <main class="article-wrapper">
+        <h2 class="article-headline"> {{text.title}}</h2>
+        
+        <div class="article-info">
+            <div class="sharing-icons">
+            </div>
+        </div>
+
+        <article class="newspaper-columns">
+        {{text.story_content|linebreaks}}
+                        <button class="audio-btn"><i class="fas fa-volume-up"> add TTS</i></button>
+        </article>
+    </main>
+</div>
+{% endblock %}

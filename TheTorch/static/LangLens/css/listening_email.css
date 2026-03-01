@@ -1,0 +1,110 @@
+.email-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    min-height: 80vh;
+}
+
+/* Sidebar Styling */
+.email-sidebar {
+    width: 200px;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-right: 1px solid #e2e8f0;
+}
+
+.btn-compose {
+    background: #3b82f6;
+    color: white;
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+}
+
+.email-sidebar ul { list-style: none; }
+.email-sidebar li {
+    padding: 0.6rem 1rem;
+    color: #64748b;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+.email-sidebar li.active {
+    background: #eff6ff;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* Email Body Styling */
+.email-body-wrapper {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.email-actions {
+    display: flex;
+    gap: 1.5rem;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+}
+
+.email-subject {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 2rem;
+}
+
+.sender-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.sender-avatar {
+    font-size: 2.5rem;
+    color: #cbd5e1;
+}
+
+.sender-details p { font-size: 0.9rem; color: #1e293b; }
+.sender-details span { color: #64748b; font-weight: 400; }
+.sender-details .to-me { font-size: 0.8rem; color: #94a3b8; margin-top: 2px; }
+
+.email-time {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* The Story Content */
+.email-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #334155;
+    white-space: pre-wrap; /* Maintains spacing from your text field */
+    margin-bottom: 3rem;
+}
+
+.email-footer-actions {
+    display: flex;
+    gap: 1rem;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 2rem;
+}
+
+.btn-reply, .btn-forward {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    padding: 0.5rem 1.5rem;
+}
+.btn-reply:hover { background: #f8fafc; }

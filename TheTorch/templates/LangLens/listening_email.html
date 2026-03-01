@@ -1,0 +1,54 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/listening_email.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="email-container">
+    <aside class="email-sidebar">
+        <button class="btn-compose">Compose</button>
+        <ul>
+            <li class="active"><i class="fas fa-inbox"></i> Inbox</li>
+            <li><i class="fas fa-star"></i> Starred</li>
+            <li><i class="fas fa-paper-plane"></i> Sent</li>
+        </ul>
+    </aside>
+
+    <main class="email-body-wrapper">
+        <header class="email-header">
+            <div class="email-actions">
+                <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
+                <i class="fas fa-archive"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-trash"></i>
+            </div>
+            
+            <h1 class="email-subject"> story.title </h1>
+            
+            <div class="sender-info">
+                <div class="sender-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="sender-details">
+                    <p><strong>LangLens AI</strong> <span>&lt;ai-tutor@langlens.com&gt;</span></p>
+                    <p class="to-me">to me <i class="fas fa-caret-down"></i></p>
+                </div>
+                <div class="email-time">
+                    Just now
+                </div>
+            </div>
+        </header>
+
+        <article class="email-content">
+             story.story_content|linebreaks 
+        </article>
+        
+        <footer class="email-footer-actions">
+            <button class="btn-reply"><i class="fas fa-reply"></i> Reply</button>
+            <button class="btn-forward"><i class="fas fa-share"></i> Forward</button>
+        </footer>
+    </main>
+</div>
+{% endblock %}

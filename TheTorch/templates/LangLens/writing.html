@@ -1,0 +1,55 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/writing.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="writing-container">
+    <header class="writing-header">
+        <div class="header-left">
+            <a href="javascript:history.back()" class="back-link"><i class="fas fa-chevron-left"></i> Back to Dashboard</a>
+            <h1>Writing Workspace</h1>
+        </div>
+        <div class="header-actions">
+            <span class="save-status" id="save-status">Drafting...</span>
+            <button type="submit" form="writing-form" class="btn-publish">Save Project</button>
+        </div>
+    </header>
+
+    <div class="writing-card">
+        <form method="POST" id="writing-form">
+            {% csrf_token %}
+            <input type="text" class="title-input" placeholder="Untitled Project" name="title" required>
+            
+            <div class="writing-toolbar">
+                <div class="tool-group">
+                    <button type="button" title="Bold"><i class="fas fa-bold"></i></button>
+                    <button type="button" title="Italic"><i class="fas fa-italic"></i></button>
+                </div>
+                <div class="divider"></div>
+                <div class="tool-group">
+                    <span class="stat-badge">
+                        <i class="fas fa-file-word"></i> <span id="word-count">0</span> words
+                    </span>
+                </div>
+            </div>
+
+            <textarea class="content-editor" name="content" placeholder="Start your masterpiece..."></textarea>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Live Word Counter Logic
+    const editor = document.querySelector('.content-editor');
+    const display = document.querySelector('#word-count');
+
+    editor.addEventListener('input', () => {
+        const text = editor.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        display.innerText = words;
+    });
+</script>
+{% endblock %}

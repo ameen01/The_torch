@@ -1,0 +1,37 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/Vocabulary.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="vocab-container">
+    <header class="vocab-header">
+            <a href="javascript:history.back()" class="back-link"><i class="fas fa-chevron-left"></i> Back to Vocabularies</a>
+        <h1>{{ category.name }} Vocabulary</h1>
+    </header>
+
+    {% if vocabularies %}
+        <div class="vocab-grid">
+            {% for vocabulary in vocabularies %}
+                <div class="vocab-card">
+                    <div class="vocab-card-content">
+                        <h3>{{ vocabulary.word }}</h3>
+                        <p class="definition">{{ vocabulary.definition }}</p>
+                    </div>
+                    <div class="vocab-footer">
+                        {% if vocabulary.tag %} 
+                            <span class="tag">{{ vocabulary.tag }}</span>
+                        {% endif %}
+                        <button class="audio-btn"><i class="fas fa-volume-up"> add TTS</i></button>
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </div>
+    {% else %}
+        <p class="empty-state">No vocabulary added yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

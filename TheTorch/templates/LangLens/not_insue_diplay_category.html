@@ -1,0 +1,37 @@
+{% extends "LangLens/index.html" %}
+     {% block content %}
+
+<main class="container">
+
+        <section class="icon-section">
+            <h1>Categories</h1>
+
+            <br>
+            <br>
+            <div class="icon-grid primary-set">
+                 
+            {% if categories %}
+            {% for category in categories %}
+                
+            <a href="{% url 'vocabulary_list' category.id %}"><div class="icon-card"><p>{{category.name}}</p> </div></a>
+            {% endfor %}
+                <div>
+                    
+                </div>
+                <div>
+                </div>
+                <div >
+                </div>
+            </div>
+        </section>
+        <div>
+            <a href=""><div class="icon-card"><p> Vocabulary Quiz</p> </div></a>
+        </div>
+        
+</main>
+ {% else %}
+  <div class="icon-grid primary-set">
+        <p class="empty-state">No categories added yet.</p>
+  </div>
+    {% endif %}
+    {% endblock %} 

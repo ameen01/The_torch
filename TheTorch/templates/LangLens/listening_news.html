@@ -1,0 +1,36 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/listening_news.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="newspaper-container">
+    <header class="newspaper-header">
+        <h1 class="masthead">Lens Daily News</h1>
+        <div class="newspaper-meta">
+            <span>World News</span>
+            <span>Education</span>
+            <span>Editorial</span>
+            <span class="date">Friday, February 27, 2026</span>
+        </div>
+    </header>
+
+    <main class="article-wrapper">
+        <h2 class="article-headline"> reading.title </h2>
+        
+        <div class="article-info">
+            <p class="byline">By LangLens Editorial Staff</p>
+            <div class="sharing-icons">
+                <i class="fas fa-print"></i>
+                <i class="fas fa-share-alt"></i>
+            </div>
+        </div>
+
+        <article class="newspaper-columns">
+             reading.story_content|linebreaks 
+        </article>
+    </main>
+</div>
+{% endblock %}

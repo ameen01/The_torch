@@ -1,0 +1,66 @@
+{% extends "LangLens/index.html" %}
+
+{% block css %}
+{% load static %}
+
+     <link rel="stylesheet" href="{% static 'LangLens/css/login_snigup.css' %}">
+
+    {% endblock %} 
+
+     {% block content %}
+     <div></div>
+        <div class="all">
+     
+    <div class="auth-wrapper">
+    <div class="logo">LANG<span>LENS</span></div>
+
+    <div class="auth-container">
+        <div class="auth-card" id="signup-card">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join our platform to start typing, reading, and writing.</p>
+            
+            <form>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="John Doe" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="name@company.com" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Create Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <div class="password-strength">
+                        <div class="bar"></div>
+                        <span>Password Strength: Strong</span>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" required> 
+                        I agree to the <a href="#">Terms of Service</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary">Get Started</button>
+            </form>
+
+            <p class="toggle-text">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+</div>
+        </div>
+    {% endblock %} 

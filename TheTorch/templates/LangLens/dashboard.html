@@ -1,0 +1,154 @@
+
+{% extends "LangLens/index.html" %}
+
+     {% block css %}
+    {% load static %}
+
+     <link rel="stylesheet" href="{% static 'LangLens/css/dashboard.css' %}">
+
+    {% endblock %} 
+
+     {% block content %}
+<div class="dashboard-wrapper">
+    <aside class="sidebar">
+        <div class="logo">Lang<span>Lens</span></div>
+        <nav class="side-nav">
+            <a href="#" class="active"><i class="fas fa-th-large"></i> Overview</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div class="user-profile">
+            <img src="https://via.placeholder.com/40" alt="User">
+            <span>John Doe</span>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <h1>User Activity</h1>
+            <div class="time-stat">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <span class="label">Time Online Today</span>
+                    <span class="value">4h 22m</span>
+                </div>
+            </div>
+        </header>
+        <section class="project-spotlight">
+    <div class="spotlight-content">
+        <div class="project-details">
+            <span class="badge">Active Project</span>
+            <h2>"The Future of AI Systems"</h2>
+            <p>Type: <strong>In-Depth Article (Writing)</strong></p>
+            
+            <div class="project-meta">
+                <span><i class="fas fa-file-alt"></i> 1,200 / 2,500 words</span>
+                <span><i class="fas fa-calendar-day"></i> Due in 3 days</span>
+            </div>
+        </div>
+
+        <div class="project-progress">
+            <div class="circular-progress">
+                <span class="progress-value">48%</span>
+            </div>
+            <button class="btn-resume">Resume Work <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-keyboard typing"></i>
+                <div class="stat-info">
+                    <h3>Typing</h3>
+                    <p class="count">1,240 <span>Words</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-book-open reading"></i>
+                <div class="stat-info">
+                    <h3>Reading</h3>
+                    <p class="count">45 <span>Pages</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-list-ul listing"></i>
+                <div class="stat-info">
+                    <h3>Listing</h3>
+                    <p class="count">12 <span>Items</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-pen-nib writing"></i>
+                <div class="stat-info">
+                    <h3>Writing</h3>
+                    <p class="count">3 <span>Drafts</span></p>
+                </div>
+            </div>
+        </div>
+
+        <section class="activity-chart">
+            <h3>Weekly Engagement</h3>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 75%;"></div>
+            </div>
+            <p>You are 15% more active than last week!</p>
+        </section>
+        <section class="testing-results">
+    <div class="section-header">
+        <h3>Testing & Assessment Overview</h3>
+        <button class="btn-outline">View All Reports</button>
+    </div>
+
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Test Module</th>
+                <th>Type</th>
+                <th>Date Completed</th>
+                <th>Score</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Advanced Syntax Analysis</strong></td>
+                <td><span class="type-badge standard">Standard</span></td>
+                <td>Oct 24, 2023</td>
+                <td>
+                    <div class="score-cell">
+                        <div class="mini-bar"><div class="fill" style="width: 92%;"></div></div>
+                        92%
+                    </div>
+                </td>
+                <td><span class="status-pill pass">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>Creative Composition Flow</strong></td>
+                <td><span class="type-badge practical">Practical</span></td>
+                <td>Oct 22, 2023</td>
+                <td>
+                    <div class="score-cell">
+                        <div class="mini-bar"><div class="fill" style="width: 78%;"></div></div>
+                        78%
+                    </div>
+                </td>
+                <td><span class="status-pill pass">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>Information Architecture</strong></td>
+                <td><span class="type-badge standard">Standard</span></td>
+                <td>Oct 15, 2023</td>
+                <td>
+                    <div class="score-cell">
+                        <div class="mini-bar"><div class="fill" style="width: 45%;"></div></div>
+                        45%
+                    </div>
+                </td>
+                <td><span class="status-pill fail">Retake</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    </main>
+</div>
+    {% endblock %} 

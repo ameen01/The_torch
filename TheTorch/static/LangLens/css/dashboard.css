@@ -1,0 +1,211 @@
+/* Dashboard Specific Layout */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background: #1e293b;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-nav {
+    margin-top: 3rem;
+    flex-grow: 1;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.8rem 0;
+    transition: 0.3s;
+}
+
+.side-nav a.active, .side-nav a:hover {
+    color: white;
+}
+
+/* Main Content Area */
+.dashboard-main {
+    flex-grow: 1;
+    padding: 3rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.time-stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.time-stat i { color: #3b82f6; font-size: 1.5rem; }
+.time-stat .label { display: block; font-size: 0.8rem; color: #64748b; }
+.time-stat .value { font-weight: 700; color: #1e293b; }
+
+/* The Organized Icon Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.stat-card i {
+    font-size: 1.8rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+/* Brand Action Colors */
+.typing { background: #eff6ff; color: #3b82f6; }
+.reading { background: #f0fdf4; color: #22c55e; }
+.listing { background: #fff7ed; color: #f97316; }
+.writing { background: #faf5ff; color: #a855f7; }
+
+.stat-info h3 { font-size: 0.9rem; color: #64748b; margin-bottom: 0.2rem; }
+.count { font-size: 1.2rem; font-weight: 800; color: #1e293b; }
+.count span { font-size: 0.8rem; font-weight: 400; color: #94a3b8; }
+
+/* Weekly Progress Bar */
+.activity-chart {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+}
+
+.progress-container {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 6px;
+}
+
+/* testing  */
+
+.testing-results {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.results-table th {
+    padding: 1rem;
+    border-bottom: 2px solid #f1f5f9;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.results-table td {
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+/* Badges & Pills */
+.type-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.standard { background: #eff6ff; color: #3b82f6; }
+.practical { background: #fdf2f8; color: #db2777; }
+
+.status-pill {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.pass { background: #dcfce7; color: #15803d; }
+.fail { background: #fee2e2; color: #b91c1c; }
+
+/* Score Progress Bar */
+.score-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.mini-bar {
+    width: 60px;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.mini-bar .fill {
+    height: 100%;
+    background: #3b82f6;
+}
+
+/* this is the what the user workin on  */

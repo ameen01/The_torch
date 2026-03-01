@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Home Layout</title>
+     {% block css %}
+     {% endblock%}
+     <link rel="stylesheet" href="{% static 'LangLens/css/index.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
+
+</head>
+
+<div class="ai-chat-wrapper">
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <div class="chat-logo">LANG<span>LENS</span> AI</div>
+            <button class="close-chat" onclick="toggleChat()" aria-label="Close Chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="message ai-message">
+                Hello! I'm your English tutor. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Type your question...">
+            <button class="btn-send" onclick="sendChatMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <button class="chat-fab" onclick="toggleChat()">
+        <i class="fas fa-robot"></i>
+    </button>
+</div>
+<body>
+
+    <header class="navbar">
+        <a href="{% url 'index' %}"><div class="logo">LANG<span>LENS</span></div></a>
+        
+        <nav class="main-menu">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="">Resources</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="{% url 'login' %}"><button class="btn-login">Login</button></a>
+            <a href="{% url 'signup' %}"><button class="btn-signup">Sign Up</button></a>
+
+        </div>
+    </header>
+    {% block loguser %}
+    <main class="container">
+     {% block content %}
+        
+        <section class="icon-section">
+            <h1>Content Management</h1>
+            <br>
+            <br>
+            <div class="icon-grid primary-set">
+                <div class="icon-card">
+                    <i class="fa fa-language"></i>
+                    <a href="{% url 'get_vocbulary_categories' %}"><p>vocabularies</p></a>
+                </div>
+                <div class="icon-card">
+                    <i class="fas fa-book-open"></i>
+                    <a href="{% url 'read_categories' %}"><p>Reading</p></a>
+                </div>
+                <div class="icon-card">
+                    <i class="fas fa-volume-up"></i>
+                    <a href="{% url 'listening_categories' %}"><p>Listening</p></a>
+
+                </div>
+                <div class="icon-card">
+                    <i class="fas fa-pen-nib"></i>
+                    <a href="{% url 'writing' %}"><p>Writing</p></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="icon-section testing-section">
+            <h3>Testing Solutions</h3>
+            <div class="icon-grid secondary-set">
+                <div class="icon-card secondary">
+                    <i class="fa fa-desktop"></i>
+                    <p>Practice with AI</p>
+                </div>
+                <div class="icon-card secondary">
+                    <i class="fas fa-clipboard-check"></i>
+                    <p>Standard Testing</p>
+                </div>
+            </div>
+        </section>
+     {% endblock%}
+     {% endblock%}
+
+
+    </main>
+    
+</body>
+<script>
+    function toggleChat() {
+    const window = document.getElementById('chat-window');
+    if (window.style.display === 'flex') {
+        window.style.display = 'none';
+    } else {
+        window.style.display = 'flex';
+    }
+}
+
+async function sendChatMessage() {
+    const input = document.getElementById('user-input');
+    const body = document.getElementById('chat-body');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    // 1. Show User Message
+    body.innerHTML += `<div class="message user-message">${message}</div>`;
+    input.value = '';
+    
+    // 2. Add "Thinking" dots
+    const typingId = "typing-" + Date.now();
+    body.innerHTML += `
+        <div class="typing" id="${typingId}">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    `;
+    body.scrollTop = body.scrollHeight;
+
+    try {
+        const response = await fetch('/ai-chat/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({'content': message})
+        });
+        const data = await response.json();
+        
+        // 3. Remove dots and show AI message
+        document.getElementById(typingId).remove();
+        body.innerHTML += `<div class="message ai-message">${data.ai_output}</div>`;
+        body.scrollTop = body.scrollHeight;
+        
+    } catch (error) {
+        document.getElementById(typingId).remove();
+        body.innerHTML += `<div class="message ai-message">Model is offline. Check LM Studio!</div>`;
+    }
+}
+</script>
+</html>

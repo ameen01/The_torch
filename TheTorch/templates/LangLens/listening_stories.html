@@ -1,0 +1,18 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/listening_sstory.css' %}">
+{% endblock %}
+{% block content %}
+<div class="simple-story-container">
+    <div class="story-card">
+        <h1> reading.title </h1>
+        <div class="story-content">
+             reading.story_content|linebreaks 
+        </div>
+        <div class="story-end-line"></div>
+    </div>
+</div>
+{% endblock %}
