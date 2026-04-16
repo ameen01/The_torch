@@ -1,18 +1,47 @@
 {% extends "LangLens/index.html" %}
 {% load static %}
 
-
 {% block css %}
     <link rel="stylesheet" href="{% static 'LangLens/css/listening_sstory.css' %}">
 {% endblock %}
 {% block content %}
-<div class="simple-story-container">
-    <div class="story-card">
-        <h1> reading.title </h1>
-        <div class="story-content">
-             reading.story_content|linebreaks 
-        </div>
-        <div class="story-end-line"></div>
+    <div class="header-nav-left">
+        <a href="javascript:history.back()" class="back-link-circle" title="Back to Dashboard">
+            <i class="fas fa-arrow-left"></i>
+        </a>
     </div>
-</div>
+
+    <div class="simple-story-container">
+        <div class="story-card">
+            <h1>{{ text.title }}</h1>
+            
+            {% if text.audio %}
+            <div class="audio-player-wrapper">
+                <button class="btn-play-audio" onclick="playAudio('{{ text.audio.url }}')">
+                    <i class="fas fa-play-circle"></i> Play Audio
+                </button>
+            </div>
+            {% else %}
+            <div class="audio-player-wrapper">
+                <button class="btn-play-audio" disabled>
+                    <i class="fas fa-play-circle"></i> No Audio Available
+                </button>
+            </div>
+            {% endif %}
+            
+            <div class="story-content">
+                {{ text.story_content|linebreaks }}
+            </div>
+            <div class="story-end-line"></div>
+        </div>
+    </div>
+
+    <script>
+        function playAudio(audioUrl) {
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+                console.error("Playback failed:", error);
+            });
+        }
+    </script>
 {% endblock %}

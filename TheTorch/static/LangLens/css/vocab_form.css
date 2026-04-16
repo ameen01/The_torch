@@ -1,0 +1,270 @@
+:root {
+    --accent: #3b82f6;
+    --accent-soft: #eff6ff;
+    --danger: #ef4444;
+    --danger-soft: #fef2f2;
+    --text-dark: #0f172a;
+    --text-light: #64748b;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    --success: #10b981;
+}
+
+body { background: var(--bg); font-family: 'Inter', sans-serif; }
+
+.vocab-form-container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+
+/* --- Header --- */
+.form-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-center h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.back-link-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-light);
+    border: 1px solid var(--border);
+    transition: 0.2s;
+}
+
+.back-link-circle:hover {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+/* --- Form Content --- */
+.form-content {
+    display: flex;
+    justify-content: center;
+}
+
+.form-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    width: 100%;
+}
+
+.form-card.confirmation {
+    text-align: center;
+}
+
+/* --- Alerts --- */
+.alert {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.alert-success {
+    background: #ecfdf5;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-error {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid #fecaca;
+}
+
+/* --- Form Groups --- */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--white);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+textarea.form-control {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* --- Form Actions --- */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--text-dark);
+    border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+/* --- Confirmation Page --- */
+.confirmation-icon {
+    font-size: 4rem;
+    color: var(--danger);
+    margin-bottom: 1rem;
+}
+
+.confirmation-icon i {
+    display: inline-block;
+}
+
+.form-card.confirmation h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin: 1rem 0;
+}
+
+.confirmation-text {
+    color: var(--text-light);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-details {
+    background: #f8fafc;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-details p {
+    margin: 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.confirmation-details strong {
+    color: var(--text-dark);
+}
+
+.warning-text {
+    color: var(--danger);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.confirmation-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmation-form .form-actions {
+    flex-direction: column-reverse;
+}
+
+.confirmation-form .btn-danger {
+    width: 100%;
+    justify-content: center;
+}
+
+.confirmation-form .btn-secondary {
+    width: 100%;
+    justify-content: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .vocab-form-container { padding: 1rem; }
+    
+    .form-card {
+        padding: 1.5rem;
+    }
+    
+    .form-header {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-nav-left, .header-nav-right {
+        display: none;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+}

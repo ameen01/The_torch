@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – LangLens</title>
+    <link href="{% static 'LangLens/css/admin.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div>
+            <h1>LangLens Admin</h1>
+        </div>
+        <nav>
+            <a href="{% url 'home' %}">← Back to Site</a>
+            <a href="/admin/logout/">Logout</a>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-chart-line"></i> Overview</a></li>
+                <li><a href="{% url 'get_vocbulary_categories' %}"><i class="fas fa-book"></i> Vocabulary</a></li>
+                <li><a href="{% url 'reading_category_list' %}"><i class="fas fa-newspaper"></i> Reading</a></li>
+                <li><a href="{% url 'listening_category_list' %}"><i class="fas fa-headphones"></i> Listening</a></li>
+                <li><a href="/admin/"><i class="fas fa-cog"></i> Django Admin</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h2>Welcome back, {{ user.first_name|default:user.username }}!</h2>
+            
+            <!-- Statistics Cards -->
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><i class="fas fa-words"></i> Vocabulary Words</h3>
+                    <p class="card-stat">{{ vocabulary_count }}</p>
+                    <small>Total words in system</small>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> Categories</h3>
+                    <p class="card-stat">{{ category_count }}</p>
+                    <small>Total categories</small>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-file-alt"></i> Reading Modules</h3>
+                    <p class="card-stat">{{ reading_count }}</p>
+                    <small>Total reading materials</small>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-volume-up"></i> Listening Modules</h3>
+                    <p class="card-stat">{{ listening_count }}</p>
+                    <small>Total audio content</small>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="margin-top: 2rem;">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="location.href=''">
+                        <i class="fas fa-plus"></i> Generate Vocabulary List
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='/admin/langlens/vocabulary/add/'">
+                        <i class="fas fa-plus"></i> Add Word
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='/admin/langlens/category/add/'">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div style="margin-top: 2rem;">
+                <h3>System Status</h3>
+                <div class="card">
+                    <p><i class="fas fa-check-circle" style="color: #4caf50;"></i> All modules are running</p>
+                    <p><i class="fas fa-check-circle" style="color: #4caf50;"></i> Database connection OK</p>
+                    <p><i class="fas fa-check-circle" style="color: #4caf50;"></i> LM Studio is active</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        © {{ now.year }} LangLens • Admin Dashboard
+    </footer>
+</body>
+</html>

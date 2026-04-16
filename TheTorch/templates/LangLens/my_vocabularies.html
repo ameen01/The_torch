@@ -1,0 +1,77 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/my_vocabularies.css' %}">
+{% endblock %}
+
+{% block dashboard_writing %}
+<div class="vocab-container">
+    <header class="vocab-header">
+        <div class="header-nav-left">
+            <a href="{% url 'index' %}" class="back-link-circle" title="Back to Home">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        
+        <div class="header-center">
+            <h1>My Vocabulary</h1>
+            <p class="subtitle">Your personal word collection</p>
+        </div>
+
+        <div class="header-nav-right">
+            <a href="{% url 'add_vocabulary' %}" class="btn-add-word">
+                <i class="fas fa-plus"></i> Add Word
+            </a>
+        </div>
+    </header>
+
+    <div class="vocab-content">
+        {% if user_words %}
+            <div class="vocab-stats">
+                <div class="stat">
+                    <span class="stat-label">Total Words</span>
+                    <span class="stat-value">{{ user_words|length }}</span>
+                </div>
+            </div>
+
+            <div class="vocab-grid">
+                {% for word in user_words %}
+                    <div class="vocab-card">
+                        <div class="card-header">
+                            <h3 class="word-title">{{ word.word }}</h3>
+                            <span class="card-date">{{ word.created_at|date:"M d" }}</span>
+                        </div>
+                        
+                        <div class="card-body">
+                            {% if word.definition %}
+                                <p class="word-definition">{{ word.definition }}</p>
+                            {% else %}
+                                <p class="word-definition empty">No definition added yet</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="{% url 'edit_vocabulary' word.id %}" class="btn-edit" title="Edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="{% url 'delete_vocabulary' word.id %}" class="btn-delete" title="Delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <h2>No words yet</h2>
+                <p>Start building your personal vocabulary collection!</p>
+                <a href="{% url 'add_vocabulary' %}" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add Your First Word
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

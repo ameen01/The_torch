@@ -1,16 +1,7 @@
 {% extends "LangLens/index.html" %}
 
-{% block css %}
-{% load static %}
-
-     <link rel="stylesheet" href="{% static 'LangLens/css/login_snigup.css' %}">
-
-    {% endblock %} 
-
-     {% block content %}
-     <div></div>
+     {% block loguser %}
         <div class="all">
-     
     <div class="auth-wrapper">
     <div class="logo">LANG<span>LENS</span></div>
 
@@ -19,38 +10,69 @@
             <h2>Create Account</h2>
             <p class="subtitle">Join our platform to start typing, reading, and writing.</p>
             
-            <form>
+            <form method="post">
+                {% csrf_token %}
+
+                {% if message %}
+                    <div class="success-message">{{ message }}</div>
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {% for err in form.non_field_errors %}
+                            <p>{{ err }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <div class="input-group">
-                    <label>Full Name</label>
+                    <label for="id_full_name">Full Name</label>
                     <div class="input-wrapper">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="John Doe" required>
+                        {{ form.full_name }}
                     </div>
+                    {{ form.full_name.errors }}
                 </div>
 
                 <div class="input-group">
-                    <label>Email Address</label>
+                    <label for="id_username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user-circle"></i>
+                        {{ form.username }}
+                    </div>
+                    {{ form.username.errors }}
+                </div>
+
+                <div class="input-group">
+                    <label for="id_email">Email Address</label>
                     <div class="input-wrapper">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="name@company.com" required>
+                        {{ form.email }}
                     </div>
+                    {{ form.email.errors }}
                 </div>
 
                 <div class="input-group">
-                    <label>Create Password</label>
+                    <label for="id_password1">Password</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="••••••••" required>
+                        {{ form.password1 }}
                     </div>
-                    <div class="password-strength">
-                        <div class="bar"></div>
-                        <span>Password Strength: Strong</span>
+                    {{ form.password1.errors }}
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password2">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        {{ form.password2 }}
                     </div>
+                    {{ form.password2.errors }}
                 </div>
 
                 <div class="form-options">
                     <label class="checkbox-container">
-                        <input type="checkbox" required> 
+                        <input type="checkbox" required>
                         I agree to the <a href="#">Terms of Service</a>
                     </label>
                 </div>
@@ -62,5 +84,5 @@
         </div>
     </div>
 </div>
-        </div>
+</div>
     {% endblock %} 

@@ -1,0 +1,68 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/vocab_form.css' %}">
+{% endblock %}
+
+{% block dashboard_writing %}
+<div class="vocab-form-container">
+    <header class="form-header">
+        <div class="header-nav-left">
+            <a href="{% url 'my_vocabularies' %}" class="back-link-circle" title="Back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        
+        <div class="header-center">
+            <h1>Add New Word</h1>
+        </div>
+
+        <div class="header-nav-right"></div>
+    </header>
+
+    <div class="form-content">
+        <div class="form-card">
+            {% if message %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endif %}
+            {% if error %}
+                <div class="alert alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" class="vocab-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="word">Word *</label>
+                    <input type="text" 
+                           id="word" 
+                           name="word" 
+                           class="form-control" 
+                           placeholder="Enter the word"
+                           required
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="definition">Definition</label>
+                    <textarea id="definition" 
+                              name="definition" 
+                              class="form-control" 
+                              rows="5"
+                              placeholder="Enter the word's definition (optional)"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Add Word
+                    </button>
+                    <a href="{% url 'my_vocabularies' %}" class="btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

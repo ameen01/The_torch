@@ -5,33 +5,52 @@
     <link rel="stylesheet" href="{% static 'LangLens/css/Vocabulary.css' %}">
 {% endblock %}
 
-{% block content %}
+     {% block dashboard_writing %}
 <div class="vocab-container">
     <header class="vocab-header">
-            <a href="javascript:history.back()" class="back-link"><i class="fas fa-chevron-left"></i> Back to Vocabularies</a>
+            <div class="header-nav-left">
+            <a href="javascript:history.back()" class="back-link-circle" title="Back to Dashboard">
+                <i class="fas fa-arrow-left"></i>
+            </a>
         <h1>{{ category.name }} Vocabulary</h1>
     </header>
 
     {% if vocabularies %}
         <div class="vocab-grid">
             {% for vocabulary in vocabularies %}
-                <div class="vocab-card">
+                <div class="vocab-card" >
                     <div class="vocab-card-content">
                         <h3>{{ vocabulary.word }}</h3>
+                      <!-- ? # The image display is currently commented out, but you can enable it by uncommenting the following line and ensuring the image field is properly set up in your model and view. -->
+                        <!-- <img src="" height="100px" width="100px"> -->
+
                         <p class="definition">{{ vocabulary.definition }}</p>
+                        
                     </div>
                     <div class="vocab-footer">
                         {% if vocabulary.tag %} 
                             <span class="tag">{{ vocabulary.tag }}</span>
                         {% endif %}
-                        <button class="audio-btn"><i class="fas fa-volume-up"> add TTS</i></button>
+                        <button class="audio-btn" onclick="playAudio('{{ vocabulary.audio.url }}')"><i class="fas fa-volume-up">  read</i></button>
                     </div>
                 </div>
             {% endfor %}
             
         </div>
     {% else %}
+        <div class="vocab-card" >
+            <div class="vocab-card-content">
         <p class="empty-state">No vocabulary added yet.</p>
+            </div>
+            <div class="vocab-footer">
     {% endif %}
 </div>
+<script>
+function playAudio(audioUrl) {
+    const audio = new Audio(audioUrl);
+    audio.play().catch(error => {
+        console.error("Playback failed:", error);
+    });
+}
+</script>
 {% endblock %}

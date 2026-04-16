@@ -1,0 +1,45 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/local_news.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="local-news-page">
+    <section class="local-news-header">
+        <div>
+            <h1>Local Manitoba News</h1>
+            <p>Latest local stories from {{ feed_source }} in the last 24 hours — {{ province }}, {{ country }}</p>
+        </div>
+    </section>
+
+    {% if articles %}
+    <div class="news-grid">
+        {% for article in articles %}
+        <article class="news-card">
+            <div class="card-top">
+                <time datetime="{{ article.published|date:'c' }}">{{ article.published|date:'M d, Y H:i' }}</time>
+                <span class="news-tag">Local</span>
+            </div>
+            {% if article.image_url %}
+            <div class="news-image">
+                <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            <h2><a href="{{ article.link }}" target="_blank" rel="noopener">{{ article.title }}</a></h2>
+            <p>{{ article.description|safe }}</p>
+            <div class="news-footer">
+                <a href="{{ article.link }}" target="_blank" rel="noopener" class="btn-read-more">Read on {{ feed_source }}</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-news-message">
+        <p>No local Manitoba news items were found for the last 24 hours.</p>
+        <p>Try again in a few minutes or verify the feed source is available.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

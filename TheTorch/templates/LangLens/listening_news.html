@@ -6,31 +6,57 @@
 {% endblock %}
 
 {% block content %}
-<div class="newspaper-container">
-    <header class="newspaper-header">
-        <h1 class="masthead">Lens Daily News</h1>
-        <div class="newspaper-meta">
-            <span>World News</span>
-            <span>Education</span>
-            <span>Editorial</span>
-            <span class="date">Friday, February 27, 2026</span>
-        </div>
-    </header>
+    <div class="header-nav-left">
+        <a href="javascript:history.back()" class="back-link-circle" title="Back to Dashboard">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
 
-    <main class="article-wrapper">
-        <h2 class="article-headline"> reading.title </h2>
-        
-        <div class="article-info">
-            <p class="byline">By LangLens Editorial Staff</p>
-            <div class="sharing-icons">
-                <i class="fas fa-print"></i>
-                <i class="fas fa-share-alt"></i>
+    <div class="newspaper-container">
+        <header class="newspaper-header">
+            <h1 class="masthead">Lens Daily News</h1>
+            <div class="newspaper-meta">
+                <span>World News</span>
+                <span>Education</span>
+                <span>Editorial</span>
+                <span class="date">Friday, February 27, 2026</span>
             </div>
-        </div>
+        </header>
 
-        <article class="newspaper-columns">
-             reading.story_content|linebreaks 
-        </article>
-    </main>
-</div>
+        <main class="article-wrapper">
+            <h2 class="article-headline">{{ text.title }}</h2>
+            
+            <div class="article-info">
+                <div class="byline-and-audio">
+                    <p class="byline">By LangLens Editorial Staff</p>
+                    {% if text.audio %}
+                    <button class="btn-play-audio" onclick="playAudio('{{ text.audio.url }}')">
+                        <i class="fas fa-play-circle"></i> Listen
+                    </button>
+                    {% else %}
+                    <button class="btn-play-audio" disabled>
+                        <i class="fas fa-play-circle"></i> No Audio
+                    </button>
+                    {% endif %}
+                </div>
+                <div class="sharing-icons">
+                    <i class="fas fa-print"></i>
+                    <i class="fas fa-share-alt"></i>
+                </div>
+            </div>
+
+            <article class="newspaper-columns">
+                {{ text.story_content|linebreaks }}
+            </article>
+        </main>
+    </div>
+
+    <script>
+        function playAudio(audioUrl) {
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+                console.error("Playback failed:", error);
+            });
+        }
+    </script>
 {% endblock %}

@@ -29,7 +29,7 @@ class ListingModuleInline(admin.StackedInline):
 # --- Main Admin Classes ---
 @admin.register(Vocabulary)
 class VocabularyAdmin(admin.ModelAdmin):
-    list_display = ('word', 'category')
+    list_display = ('word', 'category','image','audio')
     list_filter = ('category',)
     search_fields = ('word',)
     
@@ -47,8 +47,8 @@ class ReadingAdmin(admin.ModelAdmin):
 
 @admin.register(ListingModule)
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category')
-    search_fields = ('title', 'text_for_audio')
+    list_display = ('title', 'category','audio','slug',)
+    search_fields = ('title', 'audio')
 
 @admin.register(ActivitySession)
 class ActivitySessionAdmin(admin.ModelAdmin):

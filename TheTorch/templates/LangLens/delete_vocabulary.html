@@ -1,0 +1,59 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/vocab_form.css' %}">
+{% endblock %}
+
+{% block dashboard_writing %}
+<div class="vocab-form-container">
+    <header class="form-header">
+        <div class="header-nav-left">
+            <a href="{% url 'my_vocabularies' %}" class="back-link-circle" title="Back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        
+        <div class="header-center">
+            <h1>Delete Word</h1>
+        </div>
+
+        <div class="header-nav-right"></div>
+    </header>
+
+    <div class="form-content">
+        <div class="form-card confirmation">
+            <div class="confirmation-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <h2>Are you sure?</h2>
+            <p class="confirmation-text">
+                You are about to permanently delete the word "<strong>{{ vocab.word }}</strong>" from your vocabulary.
+            </p>
+            
+            {% if vocab.definition %}
+                <div class="confirmation-details">
+                    <p><strong>Definition:</strong></p>
+                    <p>{{ vocab.definition }}</p>
+                </div>
+            {% endif %}
+
+            <p class="warning-text">This action cannot be undone.</p>
+
+            <form method="POST" class="confirmation-form">
+                {% csrf_token %}
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-danger">
+                        <i class="fas fa-trash-alt"></i> Delete Word
+                    </button>
+                    <a href="{% url 'my_vocabularies' %}" class="btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

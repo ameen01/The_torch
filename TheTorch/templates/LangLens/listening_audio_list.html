@@ -3,14 +3,16 @@
 
 <main class="container">
         <section class="icon-section">
-            <h1>Categories</h1>
+        <div class="header-nav-left">
+            <a href="javascript:history.back()" class="back-link-circle" title="Back to Dashboard">
+                <i class="fas fa-arrow-left"></i>
             <br>
             <br>
             <div class="icon-grid primary-set">
             {% if categories %}
             {% for category in categories %}
                 
-            <a href="{% url 'display_listening_text'  slug=category.slug %}"><div class="icon-card"><p>{{category.name}}</p> </div></a>
+            <a href="{% url 'display_listening_text'  slug=category.slug %}"><div class="icon-card"><p>{{category.title}}</p> </div></a>
             {% endfor %}
                 <div>
                     

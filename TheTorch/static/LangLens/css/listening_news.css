@@ -60,11 +60,15 @@
     color: #64748b;
 }
 
+.byline-and-audio {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 /* Multi-Column Magic */
 .newspaper-columns {
-    column-count: 2; /* Creates two columns like a newspaper */
-    column-gap: 40px;
-    column-rule: 1px solid #f1f5f9; /* Subtle line between columns */
+    column-count: 1; /* Single column layout */
     font-family: 'Georgia', serif; /* Better for long reading */
     font-size: 1.1rem;
     line-height: 1.8;
@@ -72,11 +76,49 @@
     text-align: justify;
 }
 
-@media (max-width: 768px) {
-    .newspaper-columns {
-        column-count: 1; /* Stack on mobile */
-    }
+/* Audio Player Styling */
+.btn-play-audio {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn-play-audio:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-play-audio:active {
+    transform: translateY(0);
+}
+
+.btn-play-audio:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+.btn-play-audio:disabled:hover {
+    background: #cbd5e1;
+    transform: none;
+    box-shadow: none;
+}
     .masthead {
         font-size: 2rem;
     }
-}
+    .article-headline {
+        font-size: 1.5rem;
+    }

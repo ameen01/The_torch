@@ -4,8 +4,15 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
 }
+.all {
+    padding-left: 500px;
+}
 
-
+.auth-container{
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
 
 .auth-wrapper {
     width: 100%;

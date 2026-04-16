@@ -1,0 +1,236 @@
+{% extends "LangLens/index.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'LangLens/css/writing.css' %}">
+{% endblock %}
+
+{% block dashboard_writing %}
+<div class="writing-container">
+    <header class="writing-minimal-header">
+        <div class="header-nav-left">
+            <a href="javascript:history.back()" class="back-link-circle" title="Back to Dashboard">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        
+        <div class="header-center">
+            <input type="text" class="title-input-center" placeholder="Untitled Masterpiece" name="title" form="writing-form" value="{{ project.title|default:'' }}" required>
+            <div class="save-status-indicator">
+                <span class="status-dot"></span>
+                <span id="save-status">All changes saved</span>
+            </div>
+        </div>
+
+        <div class="header-nav-right">
+            </div>
+    </header>
+
+    <div class="writing-main-layout">
+        <section class="editor-canvas">
+            <div class="paper-base">
+                {% if message %}
+                    <div class="form-message success">{{ message }}</div>
+                {% endif %}
+                {% if error %}
+                    <div class="form-message error">{{ error }}</div>
+                {% endif %}
+                <form method="POST" id="writing-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="project_id" id="project_id" value="{{ project.id|default:'' }}">
+                    <input type="hidden" name="action" id="form-action" value="save">
+                    
+                    <div class="canvas-meta">
+                        <div class="meta-item">
+                            <label>Status</label>
+                            <select name="status" id="status" class="ghost-select">
+                                <option value="draft" {% if project.status == 'draft' %}selected{% endif %}>Draft</option>
+                                <option value="in_progress" {% if project.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="completed" {% if project.status == 'completed' %}selected{% endif %}>Completed</option>
+                            </select>
+                        </div>
+                        <div class="meta-divider"></div>
+                        <div class="meta-item">
+                            <label>Word Goal</label>
+                            <input type="number" name="word_goal" id="word_goal" class="ghost-input" value="{{ project.word_goal|default:'500' }}">
+                        </div>
+                    </div>
+
+                    <div class="writing-toolbar-floating">
+                        <div class="format-tools">
+                            <button type="button" class="tool-icon"><i class="fas fa-bold"></i></button>
+                            <button type="button" class="tool-icon"><i class="fas fa-italic"></i></button>
+                            <button type="button" class="tool-icon"><i class="fas fa-quote-right"></i></button>
+                        </div>
+                        <div class="word-pill">
+                            <span id="word-count">0</span> words
+                        </div>
+                    </div>
+
+                    <textarea class="main-textarea" name="content" placeholder="Type your story here...">{{ project.content|default:'' }}</textarea>
+                </form>
+            </div>
+        </section>
+
+        <aside class="sidebar-actions">
+            <div class="sidebar-group">
+                <h3>Recent Projects</h3>
+                <div class="recent-scroll-area">
+                    {% for item in recent_projects %}
+                        <a href="?project_id={{ item.id }}" class="project-card-mini">
+                            <div class="project-info">
+                                <span class="p-name">{{ item.title|default:'Untitled' }}</span>
+                                <span class="p-date">{{ item.updated_at|date:'M d' }}</span>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    {% empty %}
+                        <p class="empty-text">No recent drafts.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="sidebar-buttons">
+                <button type="button" class="action-btn btn-new" id="new-button">
+                    <i class="fas fa-plus"></i> New Project
+                </button>
+                <button type="submit" form="writing-form" class="action-btn btn-save" id="save-button">
+                    <i class="fas fa-check"></i> Save Changes
+                </button>
+                {% if project.id %}
+                <button type="button" class="action-btn btn-delete" id="delete-button">
+                    <i class="fas fa-trash-alt"></i> Delete Project
+                </button>
+                {% endif %}
+            </div>
+        </aside>
+    </div>
+</div>
+<script>
+    const contentEditor = document.querySelector('.main-textarea');
+    const wordCountEl = document.querySelector('#word-count');
+    const saveStatus = document.querySelector('#save-status');
+    const form = document.querySelector('#writing-form');
+    const formAction = document.querySelector('#form-action');
+    const projectIdInput = document.querySelector('#project_id');
+    const titleInput = document.querySelector('.title-input-center');
+    const statusSelect = document.querySelector('#status');
+    const wordGoal = document.querySelector('#word_goal');
+    const dueDate = document.querySelector('#due_date');
+    const newButton = document.querySelector('#new-button');
+    const deleteButton = document.querySelector('#delete-button');
+    const saveButton = document.querySelector('#save-button');
+
+    function updateWordCount() {
+        const text = contentEditor ? contentEditor.value.trim() : '';
+        const words = text ? text.split(/\s+/).length : 0;
+        wordCountEl.textContent = words;
+    }
+
+    contentEditor.addEventListener('input', () => {
+        updateWordCount();
+        saveStatus.textContent = 'Unsaved changes';
+    });
+
+    function clearForm() {
+        projectIdInput.value = '';
+        titleInput.value = '';
+        if (contentEditor) contentEditor.value = '';
+        statusSelect.value = 'draft';
+        wordGoal.value = 500;
+        if (dueDate) dueDate.value = '';
+        updateWordCount();
+        saveStatus.textContent = 'New draft ready';
+        document.querySelector('.alert')?.remove();
+    }
+
+    newButton.addEventListener('click', () => {
+        if (contentEditor.value.trim().length > 0 && !confirm('Start a new project? Unsaved changes will be lost.')) return;
+        clearForm();
+    });
+
+    if (deleteButton) {
+        deleteButton.addEventListener('click', () => {
+            if (!projectIdInput.value) {
+                alert('Select a project first to delete.');
+                return;
+            }
+
+            if (!confirm('Delete this project? This cannot be undone.')) return;
+
+            formAction.value = 'delete';
+            form.submit();
+        });
+    }
+
+    saveButton.addEventListener('click', () => {
+        formAction.value = 'save';
+        saveStatus.textContent = 'Saving...';
+    });
+
+    // Basic autosave (every 20s) for non-empty content
+    setInterval(() => {
+        if (!contentEditor.value.trim()) return;
+        const token = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'autosave');
+        payload.append('project_id', projectIdInput.value);
+        payload.append('title', titleInput.value);
+        payload.append('content', contentEditor.value);
+        payload.append('status', statusSelect.value);
+        payload.append('word_goal', wordGoal.value);
+        if (dueDate) {
+            payload.append('due_date', dueDate.value);
+        }
+
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': token
+            },
+            body: payload.toString()
+        }).then(response => response.json())
+          .then(data => {
+              if (data.status === 'ok') {
+                  saveStatus.textContent = 'Auto-saved at ' + new Date().toLocaleTimeString();
+                  if (data.project_id) projectIdInput.value = data.project_id;
+              } else {
+                  saveStatus.textContent = 'Auto-save failed';
+              }
+          }).catch(() => {
+              saveStatus.textContent = 'Auto-save failed';
+          });
+    }, 20000);
+
+    updateWordCount();
+        // 1. Auto-resize the editor as the user types
+    function autoResize() {
+        contentEditor.style.height = 'auto';
+        contentEditor.style.height = (contentEditor.scrollHeight) + 'px';
+    }
+    contentEditor.addEventListener('input', autoResize);
+    window.addEventListener('load', autoResize); // Resize on load for existing content
+
+    // 2. Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl + S to Save
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            saveButton.click();
+        }
+        // Alt + N for New
+        if (e.altKey && e.key === 'n') {
+            e.preventDefault();
+            newButton.click();
+        }
+    });
+
+    // 3. Visual feedback for Save Button
+    saveButton.addEventListener('click', () => {
+        saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        // The form submission will refresh the page, but this looks better for the split second it takes
+    });
+</script>
+{% endblock %}
